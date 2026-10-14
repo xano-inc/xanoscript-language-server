@@ -1,0 +1,21 @@
+{
+  "all": true,
+  "include": [
+    "**/*.js"
+  ],
+  "exclude": [
+    "**/*.spec.js",
+    "**/tests/**",
+    "**/valid_sources/**",
+    "coverage/**",
+    "node_modules/**",
+    "eslint.config.js",
+    "toTmLanguage.js",
+    ".c8rc.json"
+  ],
+  "reporter": [
+    "text",
+    "text-summary"
+  ],
+  "check-coverage": false
+}
