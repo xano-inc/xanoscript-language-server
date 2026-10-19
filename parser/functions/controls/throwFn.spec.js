@@ -38,6 +38,48 @@ describe("throwFn", () => {
     expect(parser.errors).to.be.empty;
   });
 
+  it("throwFn accepts a status", () => {
+    const parser = parse(`throw {
+      name = "NotAllowed"
+      value = "oppsy"
+      status = 403
+    }`);
+    expect(parser.errors).to.be.empty;
+  });
+
+  it("throwFn accepts the status bounds", () => {
+    for (const status of [100, 599]) {
+      const parser = parse(`throw {
+        name = "NotAllowed"
+        value = "oppsy"
+        status = ${status}
+      }`);
+      expect(parser.errors, `status ${status}`).to.be.empty;
+    }
+  });
+
+  it("throwFn refuses a status outside 100 to 599", () => {
+    for (const status of [99, 600]) {
+      const parser = parse(`throw {
+        name = "NotAllowed"
+        value = "oppsy"
+        status = ${status}
+      }`);
+      expect(parser.errors, `status ${status}`).to.not.be.empty;
+    }
+  });
+
+  it("throwFn refuses a status that is not a whole-number literal", () => {
+    for (const status of [`"403"`, "$var.code", "4.5"]) {
+      const parser = parse(`throw {
+        name = "NotAllowed"
+        value = "oppsy"
+        status = ${status}
+      }`);
+      expect(parser.errors, `status ${status}`).to.not.be.empty;
+    }
+  });
+
   it("throwFn requires a value", () => {
     const parser = parse(`throw {
       name = "throw error"

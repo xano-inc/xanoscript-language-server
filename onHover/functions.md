@@ -1985,10 +1985,13 @@ Removes characters (default is whitespace, or as specified by `value`) from both
 throw {
   name = "ValidationError"
   value = "Invalid user input provided"
+  status = 400
 }
 ```
 
-Throws an error and halts the script’s execution immediately. The `name` parameter specifies the error type (e.g., `"ValidationError"`), and `value` provides a custom error message to describe the issue.
+Throws an error and halts the script’s execution immediately. The `name` parameter specifies the error type (e.g., `"ValidationError"`), and `value` provides a custom error message to describe the issue. A `try_catch` can catch it.
+
+`status` (optional, a whole number from 100 to 599) is the HTTP status the request answers with when nothing catches the throw, including a throw inside a function run with `function.run`. Without it, an uncaught throw answers 200. A caught throw never changes the status.
 
 # try_catch
 
