@@ -1,0 +1,60 @@
+name: Bug report
+description: The language server reported something it shouldn't, or missed something it should.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The two things that make a bug fixable fastest are
+        the smallest XanoScript that shows it and exactly what the server said.
+
+  - type: textarea
+    id: source
+    attributes:
+      label: XanoScript
+      description: The smallest `.xs` snippet that reproduces it.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: >-
+        The diagnostic, completion or hover the server gave — paste messages
+        verbatim rather than summarizing them.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: "@xano/xanoscript-language-server version"
+      description: "`npm ls @xano/xanoscript-language-server`."
+      placeholder: 12.20.1
+    validations:
+      required: true
+
+  - type: input
+    id: editor
+    attributes:
+      label: Editor or host
+      placeholder: VS Code 1.105 / Neovim 0.11 / Xano
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Related issues, or what you already tried.
+    validations:
+      required: false
