@@ -33,7 +33,7 @@ export function realtimeChannelDeclaration($) {
             anonymous_clients: "[boolean]",
             nested_channels: "[boolean]",
             // The CLI pull emits `message_history: history ?? 0` (an arbitrary
-            // integer — see the Xano backend redacted `onSettings`), so
+            // integer), so
             // accept any numeric value rather than a fixed enum. Kept typed
             // ("[number]") so a non-numeric value still surfaces a diagnostic.
             message_history: "[number]",

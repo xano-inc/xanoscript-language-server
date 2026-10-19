@@ -25,8 +25,7 @@ import { Identifier, NewlineToken, TypeToken } from "../lexer/tokens.js";
 
 // Grammar for the top-level `microservice <name> { ... }` entity.
 //
-// Grounded against the Xano backend's authoritative XanoScript schema DSL
-// (redacted):
+// Grounded against the Xano backend's XanoScript schema:
 //
 //   microservice <name> {
 //     description|guid|kind|tenant_deploy = "..."   # static:text (optional)

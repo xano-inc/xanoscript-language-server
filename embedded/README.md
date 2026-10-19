@@ -81,7 +81,7 @@ This works in any context (not just `api.lambda`), making it flexible for future
 ## Client-Side vs Server-Side
 
 - **Server-side** (this folder): JavaScript implementation used by language server
-- **Client-side** (`src/tooling/js_embedding.ts`): TypeScript implementation used by VS Code extension
+- **Client-side**: the editor extension creates the virtual documents with the same extraction logic
 - Both implement the same extraction logic but in their respective environments
 
 ## Testing
@@ -89,7 +89,6 @@ This works in any context (not just `api.lambda`), making it flexible for future
 All modules are ES6 modules and can be tested independently:
 
 ```bash
-cd language-server
 node -e "import('./embedded/embeddedContent.js').then(m => console.log(m.extractEmbeddedJS('code = \"\"\"\\nconsole.log()\\n\"\"\"')))"
 ```
 

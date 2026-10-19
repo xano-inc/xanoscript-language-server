@@ -11,7 +11,7 @@ import { getVarName } from "./generic/utils.js";
 
 // First-class MCP `prompt` and `resource` workspace objects (MCP 2026-07-28),
 // attached to an `mcp_server` through its `prompts` / `resources` blocks.
-// Grounded against the Xano backend's `script/kind/schema/core/{prompt,resource}.yaml`.
+// Grounded against the Xano backend's XanoScript schema.
 //
 //   prompt code_review {                 resource regional_order {
 //     title = "Code review"                uri = "orders://{region}/{order_id}"
@@ -22,7 +22,7 @@ import { getVarName } from "./generic/utils.js";
 //   }                                      response = $order
 //                                        }
 
-/** The input field types a resource uri variable can be bound to (redacted). */
+/** The input field types a resource uri variable can be bound to. */
 export const RESOURCE_URI_VARIABLE_TYPES = [
   "text",
   "int",
@@ -39,7 +39,7 @@ const MIME_TYPE =
 
 /**
  * Parse a resource uri: a literal URI, or an RFC 6570 LEVEL-1 template.
- * Mirrors the Xano backend's `redacted`.
+ * Mirrors the backend's resource URI parser.
  * @param {string} uri
  * @returns {{ problem: string|null, variables: string[] }}
  */
@@ -103,7 +103,7 @@ export function parseResourceUri(uri) {
 
 /**
  * Why a resource's uri variables and its input block disagree, or null.
- * Mirrors the Xano backend's `redacted`.
+ * Mirrors the backend's check that URI variables match `input`.
  * @param {string[]} variables
  * @param {Object<string, {type: string, iterable: boolean}>} inputs
  * @returns {string|null}

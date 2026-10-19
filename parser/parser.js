@@ -80,7 +80,7 @@ export function xanoscriptParser(text, scheme, preTokenized = null) {
       }
       for (const error of lexResult.errors) {
         // The platform names the first character it cannot read; the lexer skips a run of them.
-        // Quoted as PHP's escapeshellarg quotes it (redacted): a `'` is written `'\''`.
+        // Quoted as PHP's escapeshellarg quotes it: a `'` is written `'\''`.
         const first = String.fromCodePoint(text.codePointAt(error.offset)).replaceAll("'", "'\\''");
         parser.addInvalidValueError({
           image: text.slice(error.offset, error.offset + error.length),

@@ -6,8 +6,7 @@ import { policyLiteralValue } from "./policyLiteral.js";
  * Everything here is read from the catalogue the host loaded (see `catalogue.js`): the check
  * ids, each check's params with their types, closed value sets, nested fields, `required`,
  * `requires_one_of`, `minimum` and `non_empty`, and the scope fields that apply to it. Nothing
- * names a check. The findings are worded like the platform's refusals (`redacted`,
- * `coerce`, `unknownCheck`) without their `rule[i] ("KEY.Rn"): params:` prefix, since a diagnostic
+ * names a check. The findings are worded like the platform's refusals without their `rule[i] ("KEY.Rn"): params:` prefix, since a diagnostic
  * already points at the place; they are a preview, and the platform's own answer on save decides.
  * Where the platform stops at the first refusal, this reports every problem, one per param.
  *
@@ -15,17 +14,17 @@ import { policyLiteralValue } from "./policyLiteral.js";
  * holds at most `STRING_MAX_LENGTH` characters, and a name longer than `NEAREST_MAX_LENGTH` bytes
  * gets no near miss.
  *
- * Check-specific rules the catalogue does not publish (`redacted`, `authoredRefusal`,
+ * Check-specific rules the catalogue does not publish (per-check validation,
  * renamed ids and params, statement wildcards) are left to the platform.
  *
  * Whether a value is a literal at all, and duplicate names, are the block's shape, not the
  * catalogue's: the parser reports those (policy_parser.js) and this skips such values.
  */
 
-/** `redacted`: the longest string a string or string[] param may hold, in characters. */
+/** The platform's limit on the longest string a string or string[] param may hold, in characters. */
 const STRING_MAX_LENGTH = 1024;
 
-/** `redacted`: the longest name, in bytes, a near miss is looked for. */
+/** The platform's limit on the longest name, in bytes, a near miss is looked for. */
 const NEAREST_MAX_LENGTH = 128;
 
 /** Edit distance, as PHP's `levenshtein` (insert, delete and replace all cost 1). */
@@ -49,7 +48,7 @@ function levenshtein(a, b) {
 }
 
 /**
- * The closest names to a misspelling, nearest first, at most two (`redacted`): within
+ * The closest names to a misspelling, nearest first, at most two, as the platform suggests them: within
  * three edits, or one containing the other. A name longer than `NEAREST_MAX_LENGTH` bytes gets
  * none, since edit distance costs the product of the two lengths per candidate.
  * @param {string} wanted
@@ -79,7 +78,7 @@ export function didYouMean(name, candidates) {
   return near.length ? `Did you mean ${near.map((n) => `"${n}"`).join(" or ")}? ` : "";
 }
 
-/** `redacted`: set when not null/false, not an empty or blank string, not an empty list or object. */
+/** Whether a param counts as provided: set when not null/false, not an empty or blank string, not an empty list or object. */
 function provided(value) {
   if (value === null || value === undefined || value === false) return false;
   if (typeof value === "string") return value.trim() !== "";
@@ -89,7 +88,7 @@ function provided(value) {
 }
 
 /**
- * A param's value as the platform validates it (`redacted`): one left out, or written
+ * A param's value as the platform validates it: one left out, or written
  * as `null` when its type is not `any`, is its default.
  */
 const inForce = (literal, schema, name) =>
@@ -107,7 +106,7 @@ export function unknownCheckMessage(id, ids) {
 }
 
 /**
- * `redacted`: whether a value has its param's declared type and values.
+ * Whether a value has its param's declared type and values.
  * @returns {{token: Object, message: string}|null}
  */
 function coerce(node, spec, checkId, name) {
@@ -124,7 +123,7 @@ function coerce(node, spec, checkId, name) {
       if (!whole || (minimum !== undefined && node.value < minimum)) {
         return fail(`be a whole number${minimum !== undefined ? ` of at least ${minimum}` : ""}`);
       }
-      // `redacted`: past 2^53 - 1 a whole number is no longer exact.
+      // The platform's integer limit: past 2^53 - 1 a whole number is no longer exact.
       if (Math.abs(node.value) > Number.MAX_SAFE_INTEGER) {
         return fail(`be a whole number no larger than ${Number.MAX_SAFE_INTEGER}`);
       }
@@ -188,7 +187,7 @@ function closedProperties(spec) {
 
 /**
  * Why a set scope field cannot change what a rule of this check selects, or null when it can,
- * read from the check's published `scope_fields` (the same reading as Studio's rule form).
+ * read from the check's published `scope_fields` (the same reading as the Xano editor's rule form).
  */
 function inapplicableScope(check, name, literal) {
   const field = (check.scope_fields ?? []).find((item) => item?.name === name);

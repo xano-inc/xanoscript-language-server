@@ -4,9 +4,8 @@ import { createTokenByName } from "./utils.js";
 // MCP 2026-07-28 authoring keywords: the `prompt` and `resource` object kinds,
 // the tool/prompt/resource metadata keys, and the `mcp.elicit` / `mcp.progress`
 // statements, plus the per-server `oauth` block and the `mcp.oauth.complete` /
-// `mcp.oauth.request` / `mcp.oauth.revoke` statements. Grounded against the Xano backend's schema DSL
-// (`script/kind/schema/core/{prompt,resource,tool,mcp_server}.yaml` and
-// `script/kind/schema/statement/mcp.{elicit,progress}.yaml`).
+// `mcp.oauth.request` / `mcp.oauth.revoke` statements. Grounded against the Xano
+// backend's XanoScript schema.
 //
 // Ordering note: a keyword with `longer_alt: Identifier` loses to an EARLIER
 // shorter token, so `prompts` must precede `prompt`, and `resource` is lexed

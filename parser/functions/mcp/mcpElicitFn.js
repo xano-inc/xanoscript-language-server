@@ -13,7 +13,7 @@ import { checkElicit } from "./elicitLint.js";
 //   }
 // } as $answer
 //
-// Asks the MCP client for input (the Xano backend mvp:mcp_elicit). Input is only
+// Asks the MCP client for input. Input is only
 // collected from 2026-07-28 clients with form elicitation; every other client
 // (and a non-MCP run) resolves to {action: "cancel"}. The `input` block is the
 // same grammar as a tool's `input` block.

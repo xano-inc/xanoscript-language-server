@@ -21,10 +21,10 @@ import { didYouMean, validatePolicyRule } from "./policy/validatePolicyRule.js";
 //     rule { <field> = <literal> } # repeating; `check` names a catalogue item, `params` its params
 //   }
 //
-// with the comment, named-rule and literal-value rules of the Xano backend's redacted. It knows no
+// with the comment, named-rule and literal-value rules the platform enforces. It knows no
 // field: which fields a policy and a rule may set, their types, value sets and defaults, the retired
 // fields and reserved blocks, the key pattern and when a rule is required all come from the
-// catalogue's `document` (redacted), and every check from its `items`. With no
+// catalogue's `document`, and every check from its `items`. With no
 // catalogue loaded, only the shape is checked. See parser/policy/catalogue.js.
 
 /** The platform's refusal of a named rule, after its `rule[<i>]: ` prefix. */
@@ -287,7 +287,7 @@ function fieldProblem(name, node, spec) {
 }
 
 /**
- * A rule's params: an object of literal values (redacted; a name written twice is already
+ * A rule's params: an object of literal values (a name written twice is already
  * reported by the object grammar). The catalogue then says what the object may hold.
  */
 function checkParamsShape(node, report) {

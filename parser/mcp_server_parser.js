@@ -98,8 +98,7 @@ export function mcpServerDeclaration($) {
           },
         },
         {
-          // Per-server OAuth (the Xano backend mcp_server.yaml `oauth`; values are
-          // validated server-side by redacted).
+          // Per-server OAuth (values are validated server-side).
           // An assignment block like a channel's `publish`. mcp_server ONLY:
           // deliberately absent from agent_parser.js. Mode-specific rules
           // (hosted needs login_url, external needs issuer, ...) stay

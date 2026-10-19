@@ -82,8 +82,8 @@ export function messageDeclaration($) {
           },
         },
         {
-          // backend redacted `encode()` emits `docs = "..."` for a
-          // documented message; round-tripped by `decode()`. See redacted.
+          // the backend emits `docs = "..."` for a
+          // documented message; round-tripped on push.
           GATE: () => !hasDocs,
           ALT: () => {
             hasDocs = true;
@@ -91,7 +91,7 @@ export function messageDeclaration($) {
           },
         },
         {
-          // backend redacted `encode()` emits `active = false` for a
+          // the backend emits `active = false` for a
           // disabled message; mirrors the sibling `channel` declaration.
           GATE: () => !hasActive,
           ALT: () => {

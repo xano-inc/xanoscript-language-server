@@ -6,8 +6,8 @@ import { ProgressToken } from "../../../lexer/mcp.js";
 //   message = "Working"  // optional
 // }
 //
-// Emits `notifications/progress` on the current MCP response stream
-// (the Xano backend mvp:mcp_progress). A value that does not strictly increase is
+// Emits `notifications/progress` on the current MCP response stream.
+// A value that does not strictly increase is
 // dropped at run time. NO `as $var` binding.
 
 /**

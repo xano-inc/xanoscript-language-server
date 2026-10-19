@@ -45,7 +45,7 @@ export const isA = (token, type) => !!token && tokenMatcher(token, type);
 /** A catalogue entry's own property, never an inherited one (`constructor`, `toString`). */
 export const own = (object, key) => object && Object.hasOwn(object, key) ? object[key] : undefined;
 
-/** Native redacted: double quotes use C escapes, single quotes only \\ and \'. */
+/** As the platform reads a string: double quotes use C escapes, single quotes only \\ and \'. */
 export function policyStringValue(image) {
   if (image.startsWith('"""') || image.startsWith("'''")) {
     return image.slice(3, -3).replace(/^\r?\n/, "").replace(/\r?\n[ ]*$/, "");

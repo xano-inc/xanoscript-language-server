@@ -7,10 +7,8 @@ import { AnnotationsToken, IconsToken, TitleToken } from "../../lexer/mcp.js";
 import { MultiLineStringToken } from "../../lexer/multiline.js";
 
 // Shared MCP metadata blocks for `tool`, `prompt` and `resource` (MCP spec
-// 2026-07-28). The rules mirror the Xano backend's decode checks so the editor
-// reports what a push would refuse:
-//   - `redacted` (icons, tool annotations)
-//   - `helper/script/transform/redacted` (resource annotations)
+// 2026-07-28). The rules mirror the Xano backend's decode checks (icons, tool annotations,
+// resource annotations) so the editor reports what a push would refuse.
 
 export const ICON_MIME_TYPES = ["image/png", "image/jpeg", "image/webp"];
 export const ICON_URL_MAX_LENGTH = 2048;
@@ -19,7 +17,7 @@ export const RESOURCE_AUDIENCES = ["user", "assistant"];
 
 const ICON_SCHEMA = {
   src: "[string]",
-  // validated below: the Xano backend compares it lowercased and allows ""
+  // validated below: the backend compares it lowercased and allows ""
   "mime_type?": "[string]",
   "sizes?": ["[string]"],
   "theme?": ["light", "dark"],
@@ -47,7 +45,7 @@ function stringValue(token) {
 }
 
 /**
- * Why an icon `src` is refused, or null. Same rules as redacted:
+ * Why an icon `src` is refused, or null. Same rules as the platform:
  * `https:` or a base64 `data:` URI of png/jpeg/webp. SVG and every other scheme
  * (`http:`, `javascript:`, `file:`, ...) are refused.
  * @param {string} src

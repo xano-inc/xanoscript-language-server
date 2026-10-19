@@ -9,7 +9,7 @@
  * language server checks the policy's block shape only.
  *
  * A host fills it:
- *   - Studio sends its own live answer (`source: "live"`); a check-level problem is then an
+ *   - The Xano editor sends its own live answer (`source: "live"`); a check-level problem is then an
  *     error, because the instance refuses the same save.
  *   - The Node server and offline tools load the generated snapshot (`catalogueSnapshot.js`,
  *     `source: "snapshot"`); a check-level problem is then a warning, because the snapshot can
@@ -30,7 +30,7 @@ let version = 0;
 
 /**
  * Replace the catalogue.
- * @param {Object|Object[]|null} catalogue `{items, document}` as the platform serves it, Studio's
+ * @param {Object|Object[]|null} catalogue `{items, document}` as the platform serves it, the editor's
  *   `{checks, document}`, or a bare list of checks; null clears it
  * @param {{source?: "live"|"snapshot", generatedAt?: string|null}} [options]
  */

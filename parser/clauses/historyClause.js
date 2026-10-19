@@ -5,8 +5,7 @@ import { HistoryToken } from "../../lexer/tokens.js";
 /**
  * Parses the history clause.
  *
- * `history` mirrors the backend serializer (the Xano backend
- * helper/script/transform via `redacted`): the value is
+ * `history` mirrors the backend serializer: the value is
  * `false` (disabled), `"inherit"` (hand-authored sentinel), `"all"` (unbounded),
  * or ANY non-negative integer message limit — not a fixed set of magic numbers.
  * It is split across two OR branches because `schemaParseEnumFn` refuses an enum

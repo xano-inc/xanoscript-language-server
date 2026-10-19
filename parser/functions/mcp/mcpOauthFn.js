@@ -5,7 +5,7 @@ import { CompleteToken, OauthToken, RevokeToken } from "../../../lexer/mcp.js";
 import { DotToken, NewlineToken } from "../../../lexer/tokens.js";
 import { getVarName } from "../../generic/utils.js";
 
-// The values the Xano backend's mvp:mcp_oauth_complete accepts for `decision`.
+// The values `mcp.oauth.complete` accepts for `decision`.
 const DECISIONS = ["approve", "deny"];
 
 /**
@@ -35,9 +35,7 @@ function decisionValue($, identifier) {
   $.SUBRULE5($.expressionFn, { ARGS: [identifier, {}] });
 }
 
-// The `mcp.oauth.*` login hand-off statements (the Xano backend
-// mvp:mcp_oauth_{complete,request,revoke}, kind schemas
-// statement/mcp.oauth.{complete,request,revoke}.yaml). Each takes an optional
+// The `mcp.oauth.*` login hand-off statements. Each takes an optional
 // `as $var` binding.
 
 /**
