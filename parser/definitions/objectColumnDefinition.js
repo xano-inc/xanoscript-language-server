@@ -1,5 +1,6 @@
 import { ObjectToken } from "../../lexer/columns.js";
 import { Question } from "../../lexer/control.js";
+import { StringLiteral } from "../../lexer/literal.js";
 import { Identifier } from "../../lexer/tokens.js";
 import { getVarName } from "../generic/utils.js";
 
@@ -35,7 +36,11 @@ export function objectColumnDefinition($) {
     });
 
     // Column name (e.g., "user_id", "optional_column", "required_column")
-    const name = $.CONSUME(Identifier);
+    // A name that is not an identifier (e.g. `created-at`) is written quoted.
+    const name = $.OR9([
+      { ALT: () => $.CONSUME(Identifier) },
+      { ALT: () => $.CONSUME(StringLiteral) },
+    ]);
 
     // add variable to schema
     schema[getVarName(name)] = {
@@ -52,7 +57,7 @@ export function objectColumnDefinition($) {
 
     $.SUBRULE($.objectColumnMetadataDefinition); // Object metadata
 
-    $.addInput(name.image, "enum", iterable, nullable, optional);
+    $.addInput(getVarName(name), "enum", iterable, nullable, optional);
 
     $.sectionStack.pop();
   };

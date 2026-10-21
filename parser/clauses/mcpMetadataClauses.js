@@ -103,8 +103,14 @@ export function mcpTitleClause($) {
     $.sectionStack.push("mcpTitleClause");
     $.CONSUME(TitleToken); // "title"
     $.CONSUME(EqualToken); // "="
-    const value = $.CONSUME(StringLiteral); // "..."
-    if (value.image === `""`) {
+    // The platform writes a title holding a double quote as '...' and one
+    // holding a newline as a """ block.
+    const value = $.OR([
+      { ALT: () => $.CONSUME(StringLiteral) }, // "..."
+      { ALT: () => $.CONSUME(SingleQuotedStringLiteral) }, // '...'
+      { ALT: () => $.CONSUME(MultiLineStringToken) }, // """..."""
+    ]);
+    if (stringValue(value) === "") {
       $.addMissingError(value, "title cannot be empty");
     }
     $.sectionStack.pop();

@@ -45,6 +45,7 @@ import { utilFn } from "./utilFn.js";
 import { varFn } from "./varFn.js";
 import { webflowFn } from "./webflowFn.js";
 import { workflowExpectFn } from "./workflowExpectFn.js";
+import { workflowTestCallFn } from "./workflowTestCallFn.js";
 import { register as register_zip } from "./zip/register.js";
 import { zipFn } from "./zipFn.js";
 
@@ -81,6 +82,7 @@ export const register = ($) => {
   $.workflowExpectFn = $.RULE("workflowExpectFn", workflowExpectFn($));
   $.toolCallFn = $.RULE("toolCallFn", toolCallFn($));
   $.triggerCallFn = $.RULE("triggerCallFn", triggerCallFn($));
+  $.workflowTestCallFn = $.RULE("workflowTestCallFn", workflowTestCallFn($));
   register_ai($);
   register_schema($);
   register_api($);

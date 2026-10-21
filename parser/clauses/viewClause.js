@@ -22,10 +22,13 @@ export function viewClause($) {
       ARGS: [
         parent,
         {
+          // The platform writes each of alias/term/search/sort/hide only
+          // when the view has it.
           "[string]": {
+            "term?": "[string]",
             "search?": "[query]",
             "hide?": ["[string]"],
-            sort: { "[string]": ["asc", "desc", "rand"] },
+            "sort?": { "[string]": ["asc", "desc", "rand"] },
             id: "[string]",
             "alias?": "[string]",
           },
@@ -34,14 +37,15 @@ export function viewClause($) {
       ],
     });
 
-    // each key is the view name, ensure either search or hide is present
+    // each key is the view name, ensure it has some criteria
     for (const viewName in captured) {
+      const hasTerm = !!captured[viewName].term;
       const hasSearch = !!captured[viewName].search;
       const hasSort = !!captured[viewName].sort;
-      if (!hasSearch && !hasSort && !captured[viewName].hide) {
+      if (!hasTerm && !hasSearch && !hasSort && !captured[viewName].hide) {
         $.addMissingError(
           parent,
-          `view ${viewName} must have either a search, sort or hide criteria`,
+          `view ${viewName} must have either a term, search, sort or hide criteria`,
         );
       }
     }

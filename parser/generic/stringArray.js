@@ -1,5 +1,8 @@
 import { CommaToken, LSquare, RSquare } from "../../lexer/control.js";
-import { StringLiteral } from "../../lexer/literal.js";
+import {
+  SingleQuotedStringLiteral,
+  StringLiteral,
+} from "../../lexer/literal.js";
 import { NewlineToken } from "../../lexer/tokens.js";
 
 /**
@@ -18,7 +21,11 @@ export const stringArray = ($) => () => {
         "Missing comma or newline between string values in the array"
       );
     }
-    token = $.CONSUME(StringLiteral);
+    // '...' is how the platform writes a value holding a double quote
+    token = $.OR([
+      { ALT: () => $.CONSUME(StringLiteral) },
+      { ALT: () => $.CONSUME(SingleQuotedStringLiteral) },
+    ]);
     hasSeparator = false;
     $.OPTION(() => {
       $.CONSUME(CommaToken);

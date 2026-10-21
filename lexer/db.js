@@ -145,6 +145,12 @@ export const OracleToken = createTokenByName("oracle", {
   categories: [Identifier],
 });
 
+// db.external.snowflake
+export const SnowflakeToken = createTokenByName("snowflake", {
+  longer_alt: Identifier,
+  categories: [Identifier],
+});
+
 export const DbTokens = [
   DbToken,
   QueryToken,
@@ -169,6 +175,7 @@ export const DbTokens = [
   MysqlToken,
   PostgresToken,
   OracleToken,
+  SnowflakeToken,
   WhereToken,
 ];
 
@@ -183,6 +190,7 @@ export function mapTokenToType(token) {
     case MysqlToken.name:
     case PostgresToken.name:
     case OracleToken.name:
+    case SnowflakeToken.name:
     case QueryToken.name:
     case GetToken.name:
     case AddToken.name:

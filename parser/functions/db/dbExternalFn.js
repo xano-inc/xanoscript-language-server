@@ -4,6 +4,7 @@ import {
   MysqlToken,
   OracleToken,
   PostgresToken,
+  SnowflakeToken,
 } from "../../../lexer/db.js";
 import { DotToken } from "../../../lexer/tokens.js";
 
@@ -20,6 +21,7 @@ export function dbExternalFn($) {
       { ALT: () => $.CONSUME(MysqlToken) }, // "external.mysql"
       { ALT: () => $.CONSUME(OracleToken) }, // "external.oracle"
       { ALT: () => $.CONSUME(PostgresToken) }, // "external.postgres"
+      { ALT: () => $.CONSUME(SnowflakeToken) }, // "external.snowflake"
     ]);
     $.CONSUME1(DotToken); // "."
     $.SUBRULE($.dbExternalDirectQueryFn); // "external.direct_query"

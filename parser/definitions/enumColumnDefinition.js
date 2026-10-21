@@ -1,6 +1,7 @@
 import { EnumToken } from "../../lexer/columns.js";
 import { Question } from "../../lexer/control.js";
 import { Identifier } from "../../lexer/identifier.js";
+import { StringLiteral } from "../../lexer/literal.js";
 import { getVarName } from "../generic/utils.js";
 
 /**
@@ -30,7 +31,11 @@ export function enumColumnDefinition($) {
     }); // ? (optional field)
 
     // Column name (e.g., "user_id", "optional_column", "required_column")
-    const name = $.CONSUME(Identifier);
+    // A name that is not an identifier (e.g. `created-at`) is written quoted.
+    const name = $.OR9([
+      { ALT: () => $.CONSUME(Identifier) },
+      { ALT: () => $.CONSUME(StringLiteral) },
+    ]);
 
     // add variable to schema
     schema[getVarName(name)] = {
@@ -49,7 +54,7 @@ export function enumColumnDefinition($) {
     $.SUBRULE($.enumColumnMetadataDefinition, { ARGS: [parent] }); // Enum metadata
 
     // add the variable to the registry
-    $.addInput(name.image, "enum", iterable, nullable, optional);
+    $.addInput(getVarName(name), "enum", iterable, nullable, optional);
 
     $.sectionStack.pop();
   };

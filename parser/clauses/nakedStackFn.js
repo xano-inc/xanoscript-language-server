@@ -71,6 +71,10 @@ export function nakedStackFn($) {
                 GATE: () => options.allowCallStatements,
                 ALT: () => $.SUBRULE($.triggerCallFn),
               },
+              {
+                GATE: () => options.allowCallStatements,
+                ALT: () => $.SUBRULE($.workflowTestCallFn),
+              },
               { ALT: () => $.SUBRULE($.workflowExpectFn) },
             ]);
             // write-before-elicit lint (see functions/mcp/elicitLint.js)

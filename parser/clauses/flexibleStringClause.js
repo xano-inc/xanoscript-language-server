@@ -1,5 +1,8 @@
 import { EqualToken } from "../../lexer/control.js";
-import { StringLiteral } from "../../lexer/literal.js";
+import {
+  SingleQuotedStringLiteral,
+  StringLiteral,
+} from "../../lexer/literal.js";
 import { MultiLineStringToken } from "../../lexer/multiline.js";
 import { InstructionsToken } from "../../lexer/tool.js";
 
@@ -25,6 +28,10 @@ export function flexibleStringClause($) {
     const result = $.OR([
       {
         ALT: () => $.CONSUME(StringLiteral), // e.g., "A instructions of the field"
+      },
+      {
+        // the platform writes a value holding a double quote as '...'
+        ALT: () => $.CONSUME(SingleQuotedStringLiteral),
       },
       {
         ALT: () => $.CONSUME(MultiLineStringToken), // e.g., "fieldinstructions"

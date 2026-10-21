@@ -24,6 +24,7 @@ import {
 } from "../../lexer/columns.js";
 import { Question } from "../../lexer/control.js";
 import { Identifier } from "../../lexer/identifier.js";
+import { StringLiteral } from "../../lexer/literal.js";
 import { getVarName } from "../generic/utils.js";
 
 const DEFAULT_CONFIG = {
@@ -87,7 +88,11 @@ export function columnDefinition($) {
     });
 
     // Column name (e.g., "user_id", "optional_column", "required_column")
-    const nameToken = $.CONSUME(Identifier);
+    // A name that is not an identifier (e.g. `created-at`) is written quoted.
+    const nameToken = $.OR9([
+      { ALT: () => $.CONSUME(Identifier) },
+      { ALT: () => $.CONSUME(StringLiteral) },
+    ]);
 
     // ? (is it an optional field)
     $.OPTION6(() => {
@@ -147,7 +152,7 @@ export function columnDefinition($) {
 
     // add the variable to the registry
     $.addInput(
-      nameToken.image,
+      getVarName(nameToken),
       inputTypeToken.image,
       iterable,
       nullable,

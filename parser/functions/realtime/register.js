@@ -1,4 +1,5 @@
 import { realtimeGetSessionFn } from "./realtimeGetSessionFn.js";
+import { realtimeKickFn } from "./realtimeKickFn.js";
 import { realtimePublishFn } from "./realtimePublishFn.js";
 
 /**
@@ -11,4 +12,5 @@ export const register = ($) => {
     realtimeGetSessionFn($),
   );
   $.realtimePublishFn = $.RULE("realtimePublishFn", realtimePublishFn($));
+  $.realtimeKickFn = $.RULE("realtimeKickFn", realtimeKickFn($));
 };

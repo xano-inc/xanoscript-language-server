@@ -15,30 +15,46 @@ export function branchDeclaration($) {
     ]);
     $.validateDeclarationName(nameToken, "branch");
 
+    // Mirrors the branch document the platform writes on pull. A middleware
+    // entry carries `active: false` when the middleware is disabled.
+    const middlewareEntry = { name: "[string]", "active?": "[boolean]" };
     const middlewareSchema = {
-      pre: [{ name: "[string]" }],
-      post: [{ name: "[string]" }],
+      pre: [middlewareEntry],
+      post: [middlewareEntry],
     };
+
+    // `0` is a valid limit, and the backend writes `task: 0` (not `false`)
+    // for a disabled task history.
+    const historyValues = [false, 0, 10, 100, 1000, 10000, "all"];
 
     $.SUBRULE($.schemaParseAttributeFn, {
       ARGS: [
         parent,
         {
-          color: "[string]",
           "description?": "[string]",
+          // Omitted by the backend when the branch has no color.
+          "color?": "[string]",
           middleware: {
             function: middlewareSchema,
             query: middlewareSchema,
             task: middlewareSchema,
             tool: middlewareSchema,
+            // Always written by the platform.
+            "message?": middlewareSchema,
+            // Written only when the branch has some.
+            "prompt?": middlewareSchema,
+            "resource?": middlewareSchema,
           },
           history: {
-            function: [false, 10, 100, 1000, 10000, "all"],
-            query: [false, 10, 100, 1000, 10000, "all"],
-            task: [false, 10, 100, 1000, 10000, "all"],
-            tool: [false, 10, 100, 1000, 10000, "all"],
-            trigger: [false, 10, 100, 1000, 10000, "all"],
-            middleware: [false, 10, 100, 1000, 10000, "all"],
+            function: historyValues,
+            query: historyValues,
+            task: historyValues,
+            tool: historyValues,
+            trigger: historyValues,
+            middleware: historyValues,
+            // Written only when they differ from the default.
+            "prompt?": historyValues,
+            "resource?": historyValues,
           },
         },
       ],

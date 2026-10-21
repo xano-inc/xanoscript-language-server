@@ -460,6 +460,18 @@ trigger.call "onNewOrder" {
 
 - `trigger.call` can call any trigger defined within your workspace, table, realtime, agentic or API triggers.
 
+# workflow_test.call
+
+```xs
+workflow_test.call "sign up" {
+  datasource = "test"
+} as $signup
+```
+
+**Note:** `workflow_test.call` is only available within `workflow_test`.
+
+Runs another workflow test as a step of this one, so a chain of tests can build on each other. `datasource` optionally picks the datasource the called test runs against.
+
 # tool.call
 
 ```xs
@@ -1166,6 +1178,19 @@ db.external.postgres.direct_query {
 ```
 
 Performs a SQL query directly on an external PostgreSQL database. The `response_type` indicates if the result is a `list` or a `single` record. The `connection_string` establishes the database connection, and `arg` provides values for placeholders. The results are stored in the `as` variable, here `$recent_customers`.
+
+# db.external.snowflake.direct_query
+
+```xs
+db.external.snowflake.direct_query {
+  sql = "SELECT * FROM customers WHERE customers.last_purchase > ?"
+  response_type = "list"
+  connection_string = $env.SNOWFLAKE_CONNECTION_STRING
+  arg = $input.date_threshold
+} as $recent_customers
+```
+
+Performs a SQL query directly on an external Snowflake database. The `response_type` indicates if the result is a `list` or a `single` record. The `connection_string` establishes the database connection, and `arg` provides values for placeholders. The results are stored in the `as` variable, here `$recent_customers`.
 
 # debug.stop
 

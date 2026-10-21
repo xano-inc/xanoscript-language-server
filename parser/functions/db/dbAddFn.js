@@ -24,7 +24,8 @@ export function dbAddFn($) {
       ARGS: [
         fnToken,
         {
-          data: { "[string]": "[expression]" },
+          // The platform writes `data = {}` when no field is set.
+          data: { "[string]?": "[expression]" },
           "description?": "[string]",
           "disabled?": "[boolean]",
           "enforce_hidden_fields?": "[boolean]",

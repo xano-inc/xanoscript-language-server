@@ -19,10 +19,17 @@ export const PublishToken = createTokenByName("publish", {
   categories: [Identifier],
 });
 
+// kick
+export const KickToken = createTokenByName("kick", {
+  longer_alt: Identifier,
+  categories: [Identifier],
+});
+
 export const RealtimeStatementTokens = [
   RealtimeToken,
   GetSessionToken,
   PublishToken,
+  KickToken,
 ];
 
 export function mapTokenToType(token) {
@@ -30,6 +37,7 @@ export function mapTokenToType(token) {
     case RealtimeToken.name:
     case GetSessionToken.name:
     case PublishToken.name:
+    case KickToken.name:
       return "function";
     default:
       return null;

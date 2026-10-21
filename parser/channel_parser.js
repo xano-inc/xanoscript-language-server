@@ -22,6 +22,7 @@ export function channelDeclaration($) {
     let hasMiddleware = false;
     let hasInput = false;
     let hasDescription = false;
+    let hasDocs = false;
     let hasGuid = false;
     let hasTags = false;
     let hasActive = false;
@@ -154,6 +155,14 @@ export function channelDeclaration($) {
           ALT: () => {
             hasInput = true;
             $.SUBRULE($.inputClause);
+          },
+        },
+        {
+          // written by the platform when the channel has docs
+          GATE: () => !hasDocs,
+          ALT: () => {
+            hasDocs = true;
+            $.SUBRULE($.docsFieldAttribute);
           },
         },
         {

@@ -1,10 +1,12 @@
-import { LCurly, RCurly } from "../lexer/control.js";
+import { EqualToken, LCurly, RCurly } from "../lexer/control.js";
 import { ErrorTriggerToken } from "../lexer/error_trigger.js";
 import { StringLiteral } from "../lexer/literal.js";
+import { ActiveToken } from "../lexer/mcp_server_trigger.js";
 import { Identifier, NewlineToken } from "../lexer/tokens.js";
 
 export function errorTriggerDeclaration($) {
   return () => {
+    let hasActive = false;
     let hasDescription = false;
     let hasGuid = false;
     let hasHistory = false;
@@ -27,6 +29,16 @@ export function errorTriggerDeclaration($) {
       $.AT_LEAST_ONE(() => $.CONSUME(NewlineToken)); // at least one new line
       $.OR2([
         { ALT: () => $.SUBRULE($.commentBlockFn) },
+        {
+          // the platform writes `active = false` for a paused trigger
+          GATE: () => !hasActive,
+          ALT: () => {
+            hasActive = true;
+            $.CONSUME(ActiveToken);
+            $.CONSUME(EqualToken);
+            $.SUBRULE($.booleanValue);
+          },
+        },
         {
           GATE: () => !hasDescription,
           ALT: () => {

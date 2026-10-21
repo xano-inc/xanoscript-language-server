@@ -13,7 +13,9 @@ export function storageCreateImageFn($) {
         {
           value: "[expression]",
           access: ["public", "private"],
-          filename: "[expression]",
+          // Optional, as on create_audio/create_video: the platform omits it
+          // when unset.
+          "filename?": "[expression]",
           "description?": "[string]",
           "disabled?": "[boolean]",
         },

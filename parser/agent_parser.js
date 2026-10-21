@@ -206,7 +206,9 @@ export function agentDeclaration($) {
                   "api_version?": "[string]",
                   "baseURL?": "[string]",
                   "compatibility?": ["strict", "compatible", ""],
-                  "dynamic_retrival?": ["enabled", "disabled", ""],
+                  // Free-form JSON text in the Studio form, written back
+                  // verbatim, so any string is valid.
+                  "dynamic_retrival?": "[string]",
                   "headers?": "[string]",
                   "include_thoughts?": "[boolean]",
                   "model?": "[string]",

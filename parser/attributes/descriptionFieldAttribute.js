@@ -1,5 +1,8 @@
 import { EqualToken } from "../../lexer/control.js";
-import { StringLiteral } from "../../lexer/literal.js";
+import {
+  SingleQuotedStringLiteral,
+  StringLiteral,
+} from "../../lexer/literal.js";
 import { MultiLineStringToken } from "../../lexer/multiline.js";
 import { DescriptionToken } from "../../lexer/tokens.js";
 
@@ -14,6 +17,10 @@ export function descriptionFieldAttribute($) {
     $.OR([
       {
         ALT: () => $.CONSUME(StringLiteral), // e.g., "A description of the field"
+      },
+      {
+        // the platform writes a value holding a double quote as '...'
+        ALT: () => $.CONSUME(SingleQuotedStringLiteral),
       },
       {
         ALT: () => $.CONSUME(MultiLineStringToken), // e.g., "fieldDescription"

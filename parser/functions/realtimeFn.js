@@ -13,6 +13,7 @@ export function realtimeFn($) {
     $.OR([
       { ALT: () => $.SUBRULE($.realtimeGetSessionFn) }, // "realtime.get_session"
       { ALT: () => $.SUBRULE($.realtimePublishFn) }, // "realtime.publish"
+      { ALT: () => $.SUBRULE($.realtimeKickFn) }, // "realtime.kick"
     ]);
     $.sectionStack.pop();
   };

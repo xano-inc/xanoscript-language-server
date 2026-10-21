@@ -49,7 +49,9 @@ export function mcpServerTriggerDeclaration($) {
               ARGS: [
                 subParent,
                 {
-                  connection: "[boolean]",
+                  // Only the actions that are on are written, so a trigger
+                  // with connection off is written as `actions = {}`.
+                  "connection?": "[boolean]",
                 },
               ],
             });
