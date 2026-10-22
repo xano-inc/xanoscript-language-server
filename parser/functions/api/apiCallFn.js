@@ -24,6 +24,8 @@ export function apiCallFn($) {
     const validContexts = [
       "workflowTestDeclaration",
       "toolDeclaration",
+      "promptDeclaration",
+      "resourceDeclaration",
       "testClause",
     ];
     const isInValidContext = validContexts.some((context) =>
@@ -33,7 +35,7 @@ export function apiCallFn($) {
     if (!isInValidContext) {
       $.addInvalidValueError(
         fnToken,
-        "api.call can only be used within workflow_test, tool, or test contexts",
+        "api.call can only be used within workflow_test, tool, prompt, resource, or test contexts",
       );
     }
 

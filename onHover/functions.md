@@ -444,7 +444,7 @@ api.call "account/{account_id}" verb=POST {
 } as $account_update_response
 ```
 
-Calls an internal Xano API endpoint from within a `workflow_test` or `test` clause. This allows you to invoke internal APIs as part of your end-to-end workflow tests or unit tests within queries, functions, and tasks.
+Calls an internal Xano API endpoint from within a `workflow_test`, `tool`, `prompt`, `resource` or `test` clause. This allows you to invoke internal APIs as part of your end-to-end workflow tests, from MCP tools, prompts and resources, or in unit tests within queries, functions, and tasks.
 
 To call the endpoint as a logged-in user, pass a token with `auth = {token: "...", ignore_expiration: true}` (a literal token) or an `Authorization` header (`headers = ["Authorization: Bearer " ~ $token]`).
 
@@ -482,7 +482,7 @@ tool.call "my_tool" {
 } as $tool_response
 ```
 
-Calls an internal Xano AI tool, it allows you to invoke internal tools within your end-to-end workflows tests.
+Calls an internal Xano AI tool, it allows you to invoke internal tools within your end-to-end workflows tests, and from other tools, prompts and resources.
 
 - `tool.call` takes the name of the tool as an argument.
 - `input`: The input parameters for the tool.

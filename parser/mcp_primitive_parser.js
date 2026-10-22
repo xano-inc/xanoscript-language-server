@@ -271,7 +271,12 @@ function mcpPrimitiveDeclaration($, kind) {
           GATE: () => !hasStack,
           ALT: () => {
             hasStack = true;
-            $.SUBRULE($.stackClause);
+            // Like a tool's: the backend's prompt/resource runner loads the
+            // workspace's tools, addons and middleware, so the call
+            // statements resolve here.
+            $.SUBRULE($.stackClause, {
+              ARGS: [{ allowCallStatements: true }],
+            });
           },
         },
         {
