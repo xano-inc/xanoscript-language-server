@@ -15,6 +15,7 @@ import {
   mcpToolAnnotationsClause,
 } from "./mcpMetadataClauses.js";
 import { mcpServerClause } from "./mcpServerClause.js";
+import { mesh0Clause } from "./mesh0Clause.js";
 import { middlewareClause } from "./middlewareClause.js";
 import { nakedStackFn } from "./nakedStackFn.js";
 import { outputClause } from "./outputClause.js";
@@ -42,6 +43,7 @@ export const register = ($) => {
     flexibleStringClause($)
   );
   $.historyClause = $.RULE("historyClause", historyClause($));
+  $.mesh0Clause = $.RULE("mesh0Clause", mesh0Clause($));
   $.indexClause = $.RULE("indexClause", indexClause($));
   $.inputClause = $.RULE("inputClause", inputClause($));
   $.outputClause = $.RULE("outputClause", outputClause($));

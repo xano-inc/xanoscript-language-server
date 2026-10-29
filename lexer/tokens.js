@@ -295,6 +295,12 @@ export const HistoryToken = createTokenByName("history", {
   categories: [Identifier], // could also be an identifier
 });
 
+// `mesh0 = {logging, statements}` on objects and containers.
+export const Mesh0Token = createTokenByName("mesh0", {
+  longer_alt: Identifier,
+  categories: [Identifier], // could also be an identifier
+});
+
 export const Cachetoken = createTokenByName("cache", {
   longer_alt: Identifier,
   categories: [Identifier], // could also be an identifier
@@ -438,6 +444,7 @@ export const allTokens = uniq([
   NullToken,
   NowToken,
   HistoryToken,
+  Mesh0Token,
   Cachetoken,
   SecurityToken,
   ...StorageTokens,
@@ -557,6 +564,7 @@ function buildTokenTypeMap() {
     // Structural and control keywords
     [Cachetoken.name]: "keyword",
     [HistoryToken.name]: "keyword",
+    [Mesh0Token.name]: "keyword",
     [IndexToken.name]: "keyword",
     [InputToken.name]: "keyword",
     [MiddlewareToken.name]: "keyword",

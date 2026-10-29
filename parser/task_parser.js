@@ -13,6 +13,7 @@ export function taskDeclaration($) {
     let hasGuid = false;
     let hasDocs = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasMiddleware = false;
     let hasSchedule = false;
     let hasStack = false;
@@ -79,6 +80,13 @@ export function taskDeclaration($) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {

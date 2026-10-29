@@ -10,6 +10,7 @@ export function errorTriggerDeclaration($) {
     let hasDescription = false;
     let hasGuid = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasInput = false;
     let hasStack = false;
     let hasTags = false;
@@ -58,6 +59,13 @@ export function errorTriggerDeclaration($) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {

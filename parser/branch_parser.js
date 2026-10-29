@@ -1,6 +1,7 @@
 import { BranchToken } from "../lexer/branch.js";
 import { StringLiteral } from "../lexer/literal.js";
 import { Identifier, NewlineToken } from "../lexer/tokens.js";
+import { MESH0_SETTING_SCHEMA } from "./clauses/mesh0Clause.js";
 
 export function branchDeclaration($) {
   return () => {
@@ -55,6 +56,20 @@ export function branchDeclaration($) {
             // Written only when they differ from the default.
             "prompt?": historyValues,
             "resource?": historyValues,
+          },
+          // Strict whitelist of run types, each `{logging, statements}`.
+          // The platform writes only the types that differ from the
+          // default, and no block at all when none do.
+          "mesh0?": {
+            "function?": MESH0_SETTING_SCHEMA,
+            "query?": MESH0_SETTING_SCHEMA,
+            "task?": MESH0_SETTING_SCHEMA,
+            "tool?": MESH0_SETTING_SCHEMA,
+            "trigger?": MESH0_SETTING_SCHEMA,
+            "middleware?": MESH0_SETTING_SCHEMA,
+            "prompt?": MESH0_SETTING_SCHEMA,
+            "resource?": MESH0_SETTING_SCHEMA,
+            "message?": MESH0_SETTING_SCHEMA,
           },
         },
       ],

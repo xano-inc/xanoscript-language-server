@@ -12,6 +12,7 @@ export function functionDeclaration($) {
     let hasGuid = false;
     let hasDocs = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasInput = false;
     let hasMiddleware = false;
     let hasResponse = false;
@@ -75,6 +76,13 @@ export function functionDeclaration($) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {

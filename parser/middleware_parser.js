@@ -15,6 +15,7 @@ export function middlewareDeclaration($) {
     let hasDocs = false;
     let hasExceptionPolicy = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasInput = false;
     let hasResponse = false;
     let hasResponseStrategy = false;
@@ -76,6 +77,13 @@ export function middlewareDeclaration($) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {

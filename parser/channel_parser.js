@@ -19,6 +19,7 @@ export function channelDeclaration($) {
     let hasDelivery = false;
     let hasRateLimit = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasMiddleware = false;
     let hasInput = false;
     let hasDescription = false;
@@ -141,6 +142,13 @@ export function channelDeclaration($) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {

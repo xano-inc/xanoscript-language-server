@@ -11,6 +11,7 @@ export function realtimeServerTriggerDeclaration($) {
     let hasDescription = false;
     let hasGuid = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasInput = false;
     let hasRealtimeServer = false;
     let hasResponse = false;
@@ -81,6 +82,13 @@ export function realtimeServerTriggerDeclaration($) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {

@@ -160,6 +160,7 @@ function mcpPrimitiveDeclaration($, kind) {
     let hasDocs = false;
     let hasGuid = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasIcons = false;
     let hasInput = false;
     let hasMiddleware = false;
@@ -222,6 +223,13 @@ function mcpPrimitiveDeclaration($, kind) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {

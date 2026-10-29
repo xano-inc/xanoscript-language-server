@@ -14,6 +14,7 @@ export function mcpServerTriggerDeclaration($) {
     let hasDescription = false;
     let hasGuid = false;
     let hasHistory = false;
+    let hasMesh0 = false;
     let hasInput = false;
     let hasMcpServer = false;
     let hasResponse = false;
@@ -85,6 +86,13 @@ export function mcpServerTriggerDeclaration($) {
           ALT: () => {
             hasHistory = true;
             $.SUBRULE($.historyClause);
+          },
+        },
+        {
+          GATE: () => !hasMesh0,
+          ALT: () => {
+            hasMesh0 = true;
+            $.SUBRULE($.mesh0Clause);
           },
         },
         {
