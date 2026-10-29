@@ -295,7 +295,7 @@ export const HistoryToken = createTokenByName("history", {
   categories: [Identifier], // could also be an identifier
 });
 
-// `mesh0 = {logging, statements}` on objects and containers.
+// `mesh0 = {logging}` on objects and containers.
 export const Mesh0Token = createTokenByName("mesh0", {
   longer_alt: Identifier,
   categories: [Identifier], // could also be an identifier

@@ -57,7 +57,7 @@ export function branchDeclaration($) {
             "prompt?": historyValues,
             "resource?": historyValues,
           },
-          // Strict whitelist of run types, each `{logging, statements}`.
+          // Strict whitelist of run types, each `{logging}`.
           // The platform writes only the types that differ from the
           // default, and no block at all when none do.
           "mesh0?": {
